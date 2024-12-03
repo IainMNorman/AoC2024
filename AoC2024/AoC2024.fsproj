@@ -6,7 +6,19 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="D01.fs" />
+        <Compile Include="D02.fs" />
+        <Compile Include="D03.fs" />
         <Compile Include="Program.fs"/>
+        <Content Include="i01.txt">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="i02.txt">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="i03.txt">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>
