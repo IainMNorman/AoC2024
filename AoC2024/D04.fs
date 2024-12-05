@@ -52,41 +52,33 @@ let count (fourLetterTerm: string) (str: string) =
     |> Seq.length
 
 let findXMas grid =
-    // Safely retrieve a character from the grid, returning None if out of bounds
     let getChar (r, c) =
         if r >= 0 && c >= 0 && r < Array.length grid && c < String.length grid.[0] then
             Some grid.[r].[c]
         else
             None
 
-    // Check if the given center forms an X-MAS pattern
     let isXMas (r, c) =
-        // Get diagonals around the center
         let topLeft = getChar (r - 1, c - 1)
         let topRight = getChar (r - 1, c + 1)
         let bottomLeft = getChar (r + 1, c - 1)
         let bottomRight = getChar (r + 1, c + 1)
 
-        // Check all valid X-MAS patterns (with both MAS and SAM variations)
         let diagonal1 = (topLeft, bottomRight)
         let diagonal2 = (topRight, bottomLeft)
 
         match (diagonal1, diagonal2) with
-        | ((Some 'M', Some 'S'), (Some 'M', Some 'S')) -> true  // MAS in both diagonals
-        | ((Some 'S', Some 'M'), (Some 'S', Some 'M')) -> true  // SAM in both diagonals
-        | ((Some 'M', Some 'S'), (Some 'S', Some 'M')) -> true  // MAS and SAM
-        | ((Some 'S', Some 'M'), (Some 'M', Some 'S')) -> true  // SAM and MAS
+        | ((Some 'M', Some 'S'), (Some 'M', Some 'S')) -> true
+        | ((Some 'S', Some 'M'), (Some 'S', Some 'M')) -> true
+        | ((Some 'M', Some 'S'), (Some 'S', Some 'M')) -> true
+        | ((Some 'S', Some 'M'), (Some 'M', Some 'S')) -> true
         | _ -> false
 
-    // Count all valid centers
     grid
     |> Array.mapi (fun r row ->
         row
-        |> Seq.mapi (fun c ch ->
-            if ch = 'A' && isXMas (r, c) then 1 else 0
-        )
-        |> Seq.sum
-    )
+        |> Seq.mapi (fun c ch -> if ch = 'A' && isXMas (r, c) then 1 else 0)
+        |> Seq.sum)
     |> Array.sum
 
 let solve (lines: string array) =
