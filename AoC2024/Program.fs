@@ -15,7 +15,10 @@ printfn $"Day 04 : Part 1: %d{fst d04} -- Part 2: %d{snd d04}"
 let d05 = D05.solve (System.IO.File.ReadAllText("i05.txt"))
 printfn $"Day 05 : Part 1: %d{fst d05} -- Part 2: %d{snd d05}"
 
-let test = D05.solve "47|53
+let d06 = D06.solve (System.IO.File.ReadAllText("i06.txt"))
+printfn $"Day 06 : Part 1: %d{fst d06} -- Part 2: %d{snd d06}"
+
+let test = D06.solve "47|53
 97|13
 97|61
 97|47
