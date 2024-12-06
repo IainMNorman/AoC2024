@@ -4,8 +4,7 @@ open System.Collections.Generic
 
 let readMap (puzzleInput: string) =
     puzzleInput.Trim().Split '\n'
-    |> Array.map (fun line -> line.ToCharArray() |> Array.toList)
-    |> Array.toList
+    |> Array.map (fun line -> line.ToCharArray())
 
 let turnRight currentDirection =
     match currentDirection with
@@ -23,7 +22,7 @@ let moveForward (x, y) direction =
     | '>' -> (x, y + 1)
     | _ -> failwith "Invalid direction"
 
-let part1 (labMap: char list list) obsR obsC gp gd =
+let part1 (labMap: char array array) obsR obsC gp gd =
     let mutable looping = false
     let visitedPositions = HashSet<int * int * char>()
     let mutable guardPosition = gp
@@ -57,20 +56,10 @@ let part1 (labMap: char list list) obsR obsC gp gd =
 
     visitedPositions, looping
 
-let part2 (labMap: char list list) gp gd vp =
-    let rows = labMap.Length
-    let cols = labMap[0].Length
-    let mutable loopCount = 0
-
-    for r in 0 .. rows - 1 do
-        for c in 0 .. cols - 1 do
-            if labMap[r].[c] = '.' then
-                let result = part1 labMap r c gp gd
-
-                if snd result then
-                    loopCount <- loopCount + 1
-
-    loopCount
+let part2 (labMap: char array array) gp gd vps =
+    vps
+    |> Array.filter (fun vp -> snd (part1 labMap (fst vp) (snd vp) gp gd))
+    |> Array.length
 
 let solve input =
     let labMap = readMap input
@@ -91,11 +80,12 @@ let solve input =
 
             | _ -> ()
 
-    let p1 = part1 labMap -1 -1 guardPosition guardDirection
+    let p1 =
+        fst (part1 labMap -1 -1 guardPosition guardDirection)
+        |> Seq.map (fun (x, y, _) -> (x, y))
+        |> Seq.distinct
+        |> Seq.toArray
+    
+    let p2 = part2 labMap guardPosition guardDirection p1
 
-    let p1a =
-        fst p1 |> Seq.map (fun (x, y, _) -> (x, y)) |> Seq.distinct |> Seq.length
-
-    let p2 = part2 labMap guardPosition guardDirection (fst p1)
-
-    p1a, p2
+    p1.Length, p2
