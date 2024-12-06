@@ -32,6 +32,7 @@ let part1 (labMap: char list list) obsR obsC gp gd =
     let cols = labMap[0].Length
 
     let mutable continuePatrol = true
+
     while continuePatrol do
         let r, c = guardPosition
 
@@ -54,9 +55,9 @@ let part1 (labMap: char list list) obsR obsC gp gd =
             // Turn right if obstacle or out of bounds
             guardDirection <- turnRight guardDirection
 
-    visitedPositions.Count, looping
+    visitedPositions, looping
 
-let part2 (labMap: char list list) p1 gp gd =
+let part2 (labMap: char list list) gp gd vp =
     let rows = labMap.Length
     let cols = labMap[0].Length
     let mutable loopCount = 0
@@ -87,9 +88,14 @@ let solve input =
             | '>' ->
                 guardPosition <- (r, c)
                 guardDirection <- labMap[r][c]
-                
+
             | _ -> ()
 
     let p1 = part1 labMap -1 -1 guardPosition guardDirection
-    //let p2 = part2 labMap p1 guardPosition guardDirection
-    fst p1, 0
+
+    let p1a =
+        fst p1 |> Seq.map (fun (x, y, _) -> (x, y)) |> Seq.distinct |> Seq.length
+
+    let p2 = part2 labMap guardPosition guardDirection (fst p1)
+
+    p1a, p2

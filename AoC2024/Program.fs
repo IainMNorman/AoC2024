@@ -18,7 +18,7 @@
 // let d06 = D06.solve (System.IO.File.ReadAllText("i06.txt"))
 // printfn $"Day 06 : Part 1: %d{fst d06} -- Part 2: %d{snd d06}"
 
-let test = D06.solve """
+let test = D06.solve "
 ....#.....
 .........#
 ..........
@@ -29,7 +29,7 @@ let test = D06.solve """
 ........#.
 #.........
 ......#...
-"""
+"
 
 printfn $"Test : Part 1: %d{fst test} -- Part 2: %d{snd test}"
 
