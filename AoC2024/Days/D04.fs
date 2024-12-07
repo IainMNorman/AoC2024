@@ -41,7 +41,7 @@ let diagonals (lines: string array) =
 
     Array.concat [ d1; d2; d3; d4 ]
 
-let all lines =
+let getAllStrings lines =
     Array.concat [ lines; columns lines; diagonals lines ]
 
 let count (fourLetterTerm: string) (str: string) =
@@ -83,7 +83,7 @@ let findXMas grid =
 
 let solve (lines: string array) =
     let part1 =
-        let allStrings = all lines
+        let allStrings = getAllStrings lines
 
         (allStrings |> Array.sumBy (count "XMAS"))
         + (allStrings |> Array.sumBy (count "SAMX"))

@@ -5,8 +5,7 @@ open System.Collections.Generic
 let readMap (puzzleInput: string) =
     puzzleInput.Trim().Split '\n' |> Array.map (fun line -> line.ToCharArray())
 
-let turnRight currentDirection =
-    (currentDirection + 1) % 4
+let turnRight currentDirection = (currentDirection + 1) % 4
 
 let moveForward (x, y) direction =
     match direction with
@@ -54,10 +53,11 @@ let checkForLoop (labMap: char array array) obsR obsC gp gd rows cols =
 
     while continuePatrol do
         let r, c = guardPosition
-            
+
         visitedPositions[r, c, guardDirection] <- true
         let nextPosition = moveForward guardPosition guardDirection
         let nextR, nextC = nextPosition
+
         if nextR < 0 || nextR >= rows || nextC < 0 || nextC >= cols then
             continuePatrol <- false
         else if labMap[nextR].[nextC] <> '#' && (nextR, nextC) <> (obsR, obsC) then
@@ -66,8 +66,9 @@ let checkForLoop (labMap: char array array) obsR obsC gp gd rows cols =
             if visitedPositions[r, c, guardDirection] then
                 looping <- true
                 continuePatrol <- false
+
             guardDirection <- turnRight guardDirection
-            
+
     looping
 
 let part2 (labMap: char array array) gp gd vps =
@@ -103,8 +104,7 @@ let solve input =
 
             | _ -> ()
 
-    let p1 =
-        fst (part1 labMap -1 -1 guardPosition guardDirection) |> Seq.toArray
+    let p1 = fst (part1 labMap -1 -1 guardPosition guardDirection) |> Seq.toArray
 
     let p2 = part2 labMap guardPosition guardDirection p1
 
