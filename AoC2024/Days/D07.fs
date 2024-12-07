@@ -11,17 +11,17 @@ let parseLine (line: string) =
 let parseLines (lines: string array) = lines |> Array.map parseLine
 
 let generateOperatorCombinations count opSymbols =
-    printfn "Getting combinations"
+    let opSymbolsList = Array.toList opSymbols // Convert input array to list
     let rec combine acc depth =
         if depth = 0 then acc
         else 
             combine 
-                (Array.collect (fun x -> Array.map (fun y -> Array.append [| y |] x) opSymbols) acc) 
+                (acc 
+                |> List.collect (fun x -> opSymbolsList |> List.map (fun y -> y :: x))) 
                 (depth - 1)
-    combine (Array.singleton [||]) count
+    combine [[]] count |> List.map List.toArray |> Array.ofList // Convert output to array
 
 let getOperatorCombinationsCache (lines: (int64 * int64 array) array) (opSymbols: string array) =
-    printfn $"Getting cache for {opSymbols}"
     let minOps = lines |> Array.minBy (fun l -> Array.length (snd l)) |> snd |> Array.length
     let maxOps = lines |> Array.maxBy (fun l -> Array.length (snd l)) |> snd |> Array.length
     let range = seq { minOps..maxOps } |> Seq.toArray
