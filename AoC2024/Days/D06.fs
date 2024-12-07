@@ -24,7 +24,7 @@ let part1 (labMap: char array array) obsR obsC gp gd =
     let rows = labMap.Length
     let cols = labMap[0].Length
 
-    let visitedPositions = HashSet<(int * int)>()
+    let visitedPositions = HashSet<int * int>()
 
     let mutable continuePatrol = true
 
@@ -55,7 +55,7 @@ let checkForLoop (labMap: char array array) obsR obsC gp gd rows cols =
     while continuePatrol do
         let r, c = guardPosition
             
-        visitedPositions.[r, c, guardDirection] <- true
+        visitedPositions[r, c, guardDirection] <- true
         let nextPosition = moveForward guardPosition guardDirection
         let nextR, nextC = nextPosition
         if nextR < 0 || nextR >= rows || nextC < 0 || nextC >= cols then

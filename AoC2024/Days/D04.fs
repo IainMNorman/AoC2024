@@ -53,8 +53,8 @@ let count (fourLetterTerm: string) (str: string) =
 
 let findXMas grid =
     let getChar (r, c) =
-        if r >= 0 && c >= 0 && r < Array.length grid && c < String.length grid.[0] then
-            Some grid.[r].[c]
+        if r >= 0 && c >= 0 && r < Array.length grid && c < String.length grid[0] then
+            Some grid[r].[c]
         else
             None
 
@@ -68,10 +68,10 @@ let findXMas grid =
         let diagonal2 = (topRight, bottomLeft)
 
         match (diagonal1, diagonal2) with
-        | ((Some 'M', Some 'S'), (Some 'M', Some 'S')) -> true
-        | ((Some 'S', Some 'M'), (Some 'S', Some 'M')) -> true
-        | ((Some 'M', Some 'S'), (Some 'S', Some 'M')) -> true
-        | ((Some 'S', Some 'M'), (Some 'M', Some 'S')) -> true
+        | (Some 'M', Some 'S'), (Some 'M', Some 'S') -> true
+        | (Some 'S', Some 'M'), (Some 'S', Some 'M') -> true
+        | (Some 'M', Some 'S'), (Some 'S', Some 'M') -> true
+        | (Some 'S', Some 'M'), (Some 'M', Some 'S') -> true
         | _ -> false
 
     grid
