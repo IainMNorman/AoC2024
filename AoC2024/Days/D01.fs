@@ -6,7 +6,7 @@ let solve (lines: string[]) =
         lines
         |> Array.map (fun line ->
             line
-            |> fun s -> s.Split([| ' ' |], System.StringSplitOptions.RemoveEmptyEntries)
+            |> _.Split([| ' ' |], System.StringSplitOptions.RemoveEmptyEntries)
             |> (fun parts -> (int parts[0], int parts[1])))
         |> Array.unzip
 

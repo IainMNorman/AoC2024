@@ -1,10 +1,7 @@
 module D05
 
-open System
-open System.Collections.Generic
-
 let parseInput (input: string) =
-    let sections = input.Split("\n\n", StringSplitOptions.RemoveEmptyEntries)
+    let sections = input.Split("\n\n", System.StringSplitOptions.RemoveEmptyEntries)
 
     (sections[0].Split('\n')
      |> Array.map (fun l -> let p = l.Split('|') in int p[0], int p[1]),

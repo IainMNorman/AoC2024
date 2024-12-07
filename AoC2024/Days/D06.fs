@@ -3,7 +3,7 @@ module D06
 open System.Collections.Generic
 
 let readMap (puzzleInput: string) =
-    puzzleInput.Trim().Split '\n' |> Array.map (fun line -> line.ToCharArray())
+    puzzleInput.Trim().Split '\n' |> Array.map _.ToCharArray()
 
 let turnRight currentDirection = (currentDirection + 1) % 4
 
