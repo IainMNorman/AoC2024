@@ -14,11 +14,10 @@ let parseInput (input: string) =
 
 let checksum (disk: int array) =
     disk
-    |> Array.map int64
     |> Array.mapi (fun i c ->
         match c with
-        | -1L -> 0L
-        | _ -> (c * (int64 i))
+        | -1 -> 0L
+        | _ -> ((int64 c) * (int64 i))
         )
     |> Array.sum
 
@@ -68,11 +67,4 @@ let part2 input =
         
 
 let solve input =
-    //let test = part2 "2333133121414131499"
     part1 input, part2 input
-
-// part1 "2333133121414131402"
-// part2 "2333133121414131499" 
-// parseInput "2333133121414131402"
-
-//6398097037768
